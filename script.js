@@ -1,8 +1,8 @@
 const PRODUCTS = [
-  {id:1,name:'Clásica',desc:'Carne 180g, lechuga, tomate, queso cheddar, pan artesanal',price:5.5,image:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=60'},
-  {id:2,name:'BBQ Bacon',desc:'Tocino crujiente, salsa BBQ, cebolla caramelizada, queso',price:7.0,image:'https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=800&q=60'},
-  {id:3,name:'Doble Carne',desc:'Dos carnes jugosas, queso cheddar derretido, bacon crujiente, sésamo',price:8.0,image:'doble-carne.jpg'},
-  {id:4,name:'Doble Queso',desc:'Dos carnes, doble queso, pepinillos',price:8.5,image:'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=60'}
+  {id:1,name:'Clásica',desc:'Carne 180g, lechuga, tomate, queso cheddar, pan artesanal',price:75,image:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=60'},
+  {id:2,name:'BBQ Bacon',desc:'Tocino crujiente, salsa BBQ, cebolla caramelizada, queso',price:95,image:'https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=800&q=60'},
+  {id:3,name:'Doble Carne',desc:'Dos carnes jugosas, queso cheddar derretido, bacon crujiente, sésamo',price:110,image:'doble-carne.jpg'},
+  {id:4,name:'Doble Queso',desc:'Dos carnes, doble queso, pepinillos',price:120,image:'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=60'}
 ];
 
 const cart = [];
@@ -15,7 +15,7 @@ const cartTotalEl = document.getElementById('cart-total');
 const cartClose = document.getElementById('cart-close');
 const checkoutBtn = document.getElementById('checkout');
 
-function fmt(v){return '$'+v.toFixed(2)}
+function fmt(v){return '$'+Math.round(v)}
 
 function renderMenu(){
   menuList.innerHTML = '';
