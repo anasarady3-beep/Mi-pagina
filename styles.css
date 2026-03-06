@@ -11,7 +11,9 @@ body{font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:var(
 .container{max-width:var(--max-width);margin:0 auto;padding:24px}
 .site-header{background:#fff;box-shadow:var(--shadow);position:sticky;top:0;z-index:40}
 .header-inner{display:flex;align-items:center;gap:16px}
-.logo{margin:8px 0;font-size:1.2rem}
+.logo-container{display:flex;align-items:center;gap:12px}
+.logo-img{width:50px;height:50px}
+.logo{margin:0;font-size:1.2rem;color:#d9534f}
 .nav{margin-left:auto;display:flex;gap:12px}
 .nav a{color:var(--muted);text-decoration:none}
 .cart-btn{background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
