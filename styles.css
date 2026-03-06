@@ -17,11 +17,13 @@ body{font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:var(
 .nav{margin-left:auto;display:flex;gap:12px}
 .nav a{color:var(--muted);text-decoration:none}
 .cart-btn{background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
-.hero{padding:48px 0;background:linear-gradient(90deg,#fff 60%,rgba(217,83,79,0.06));}
-.hero-content{display:flex;align-items:center;gap:40px}
-.hero-image{width:250px;height:250px;object-fit:contain;flex-shrink:0;padding:10px}
-.hero-text h2{margin:0 0 16px;font-size:2rem}
-.hero-text p{margin:0 0 20px;font-size:1.1rem;color:var(--muted)}
+.hero{position:relative;min-height:500px;background-image:url('hamburguesa-de-fondo.jpeg');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(0,0,0,0.7) 0%,rgba(217,83,79,0.6) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;text-align:center;color:#fff;max-width:600px}
+.hero-text h2{margin:0 0 16px;font-size:3.5rem;font-weight:900;font-family:'Arial Black','Montserrat',sans-serif;letter-spacing:2px;text-shadow:2px 2px 8px rgba(0,0,0,0.5)}
+.hero-text p{margin:0 0 32px;font-size:1.4rem;color:#fff;font-style:italic;text-shadow:1px 1px 4px rgba(0,0,0,0.5)}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:16px 40px;font-size:1.1rem;font-weight:700;border-radius:8px;text-decoration:none;transition:all 0.3s;text-transform:uppercase;letter-spacing:1px;box-shadow:0 8px 20px rgba(217,83,79,0.3)}
+.cta-btn:hover{background:#b93c39;transform:translateY(-2px);box-shadow:0 12px 28px rgba(217,83,79,0.4)}
 .cta{display:inline-block;margin-top:12px;background:var(--accent);color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none}
 .menu h3,.about h3,.contact h3{margin-top:8px}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:16px}
