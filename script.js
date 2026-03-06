@@ -1,7 +1,7 @@
 const PRODUCTS = [
   {id:1,name:'Clásica',desc:'Carne 180g, lechuga, tomate, queso cheddar, pan artesanal',price:5.5,image:'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=60'},
   {id:2,name:'BBQ Bacon',desc:'Tocino crujiente, salsa BBQ, cebolla caramelizada, queso',price:7.0,image:'https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=800&q=60'},
-  {id:3,name:'Veggie Deluxe',desc:'Hamburguesa de garbanzo, lechuga, aguacate, alioli',price:6.0,image:'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=60'},
+  {id:3,name:'Veggie Deluxe',desc:'Hamburguesa de garbanzo, lechuga, aguacate, alioli',price:6.0,image:'https://images.unsplash.com/photo-1551782450-17144efb5723?auto=format&fit=crop&w=800&q=60'},
   {id:4,name:'Doble Queso',desc:'Dos carnes, doble queso, pepinillos',price:8.5,image:'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=60'}
 ];
 
