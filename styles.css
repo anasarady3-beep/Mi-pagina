@@ -18,7 +18,8 @@ body{font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:var(
 .nav a{color:var(--muted);text-decoration:none}
 .cart-btn{background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer}
 .hero{padding:48px 0;background:linear-gradient(90deg,#fff 60%,rgba(217,83,79,0.06));}
-.hero-content{display:flex;align-items:center}
+.hero-content{display:flex;align-items:center;gap:40px}
+.hero-image{width:250px;height:250px;object-fit:contain;flex-shrink:0;padding:10px}
 .hero-text h2{margin:0 0 16px;font-size:2rem}
 .hero-text p{margin:0 0 20px;font-size:1.1rem;color:var(--muted)}
 .cta{display:inline-block;margin-top:12px;background:var(--accent);color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none}
@@ -51,5 +52,7 @@ form button{background:var(--accent);color:#fff;padding:10px;border-radius:8px;b
 .promo-discount{margin:0;font-size:1.4rem;font-weight:700;color:var(--accent)}
 .menu-section{position:relative}
 @media(max-width:768px){
+  .hero-content{flex-direction:column;gap:20px}
+  .hero-image{width:200px;height:200px}
   .hero-text h2{font-size:1.4rem}
 }
