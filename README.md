@@ -1,4 +1,4 @@
-# La Buena Mordida — Página de ejemplo
+# Zuriel's Jr — Página de ejemplo
 
 Archivos creados:
 - `index.html`
