@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Hamburguesas La Buena Mordida</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <h1 class="logo">La Buena Mordida</h1>
+        <nav class="nav">
+          <a href="#menu">Menú</a>
+          <a href="#about">Nosotros</a>
+          <a href="#contact">Contacto</a>
+        </nav>
+        <button id="cart-toggle" class="cart-btn">Carrito (<span id="cart-count">0</span>)</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <h2>Hamburguesas artesanales, hechas con amor</h2>
+          <p>Pide online y recógela o pide a domicilio.</p>
+          <a class="cta" href="#menu">Ver Menú</a>
+        </div>
+      </section>
+
+      <section id="menu" class="container menu">
+        <h3>Nuestro Menú</h3>
+        <div class="cards" id="menu-list">
+          <!-- Las tarjetas se generan desde script.js -->
+        </div>
+      </section>
+
+      <section id="about" class="container about">
+        <h3>Sobre Nosotros</h3>
+        <p>Somos un pequeño local apasionado por las hamburguesas clásicas y las combinaciones innovadoras. Productos frescos y pan artesanal.</p>
+      </section>
+
+      <section id="contact" class="container contact">
+        <h3>Contacto / Pedido</h3>
+        <form id="order-form">
+          <label>Nombre
+            <input type="text" id="customer-name" required />
+          </label>
+          <label>Dirección (opcional para recogida)
+            <input type="text" id="customer-address" />
+          </label>
+          <label>Comentarios
+            <textarea id="customer-notes"></textarea>
+          </label>
+          <button type="submit">Enviar pedido</button>
+        </form>
+      </section>
+    </main>
+
+    <aside id="cart" class="cart" aria-hidden="true">
+      <div class="cart-inner">
+        <button id="cart-close" class="cart-close">✕</button>
+        <h4>Tu Carrito</h4>
+        <ul id="cart-items"></ul>
+        <div class="cart-summary">
+          <span>Total:</span>
+          <strong id="cart-total">$0.00</strong>
+        </div>
+        <button id="checkout" class="checkout">Pagar / Enviar pedido</button>
+      </div>
+    </aside>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2026 La Buena Mordida — Hamburguesas artesanales</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
