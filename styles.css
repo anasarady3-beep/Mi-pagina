@@ -40,4 +40,16 @@ body{font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;margin:0;background:var(
 form label{display:block;margin-bottom:8px}
 form input,form textarea{width:100%;padding:8px;border-radius:6px;border:1px solid #ddd}
 form button{background:var(--accent);color:#fff;padding:10px;border-radius:8px;border:none;margin-top:8px}
-@media(min-width:900px){.hero{display:flex;align-items:center}} 
+.promotions-section{background:linear-gradient(90deg,rgba(217,83,79,0.1),rgba(217,83,79,0.05));padding:32px 0}
+.promotions h3{margin-top:0;text-align:center;font-size:1.6rem;color:var(--accent)}
+.promo-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:20px}
+.promo-card{background:#fff;padding:20px;border-radius:12px;box-shadow:var(--shadow);border-left:4px solid var(--accent);text-align:center}
+.promo-card h4{margin:0 0 8px;color:var(--accent)}
+.promo-price{margin:0 0 8px;font-size:0.9rem;color:var(--muted)}
+.promo-discount{margin:0;font-size:1.4rem;font-weight:700;color:var(--accent)}
+.menu-section{position:relative}
+.menu-header{display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start;margin-bottom:24px}
+.menu-image{width:100%;height:300px;object-fit:cover;border-radius:12px;box-shadow:var(--shadow)}
+.menu-header > div h3{margin-top:0}
+.menu-header > div p{color:var(--muted);font-size:0.95rem}
+@media(max-width:768px){.menu-header{grid-template-columns:1fr}.menu-image{height:220px}} 
