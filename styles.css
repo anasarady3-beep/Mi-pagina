@@ -48,10 +48,11 @@ form button{background:var(--accent);color:#fff;padding:10px;border-radius:8px;b
 .promotions-section{background:linear-gradient(90deg,rgba(217,83,79,0.1),rgba(217,83,79,0.05));padding:32px 0}
 .promotions h3{margin-top:0;text-align:center;font-size:1.6rem;color:var(--accent)}
 .promo-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:20px}
-.promo-card{background:#fff;padding:20px;border-radius:12px;box-shadow:var(--shadow);border-left:4px solid var(--accent);text-align:center}
-.promo-card h4{margin:0 0 8px;color:var(--accent)}
-.promo-price{margin:0 0 8px;font-size:0.9rem;color:var(--muted)}
-.promo-discount{margin:0;font-size:1.4rem;font-weight:700;color:var(--accent)}
+.promo-card{background:#fff;padding:0;border-radius:12px;box-shadow:var(--shadow);border-left:4px solid var(--accent);text-align:center;overflow:hidden;display:flex;flex-direction:column}
+.promo-card img{width:100%;height:150px;object-fit:cover}
+.promo-card h4{margin:12px 0 8px;color:var(--accent);padding:0 16px}
+.promo-price{margin:0 0 8px;font-size:0.9rem;color:var(--muted);padding:0 16px}
+.promo-discount{margin:0 0 16px;font-size:1.4rem;font-weight:700;color:var(--accent);padding:0 16px}
 .menu-section{position:relative}
 @media(max-width:768px){
   .hero-content{flex-direction:column;gap:20px}

@@ -5,8 +5,24 @@ const PRODUCTS = [
   {id:4,name:'Doble Queso',desc:'Dos carnes, doble queso, pepinillos',price:120,image:'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=60'}
 ];
 
+const BEVERAGES = [
+  {id:101,name:'Agua Natural',desc:'Agua purificada, fresca y refrescante',price:15,image:'https://images.unsplash.com/photo-1610591437281-430bca83f3f2?auto=format&fit=crop&w=800&q=60'},
+  {id:102,name:'Agua de Sabor',desc:'Agua natural con sabor a frutas frescas (Limón, Fresa, Sandía)',price:20,image:'https://images.unsplash.com/photo-1553530666-ba2a8e36cd12?auto=format&fit=crop&w=800&q=60'},
+  {id:103,name:'Refresco',desc:'Refrescos variados: Cola, Naranja, Limón, Uva',price:25,image:'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?auto=format&fit=crop&w=800&q=60'},
+  {id:104,name:'Limonada Casera',desc:'Limonada fresca hecha con limones naturales',price:30,image:'https://images.unsplash.com/photo-1563763981-3d2e0f2734ac?auto=format&fit=crop&w=800&q=60'}
+];
+
+const DESSERTS = [
+  {id:201,name:'Brownie',desc:'Brownie de chocolate oscuro, suave y delicioso',price:40,image:'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=800&q=60'},
+  {id:202,name:'Helado',desc:'Helado artesanal en variedad de sabores',price:35,image:'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=60'},
+  {id:203,name:'Cheesecake',desc:'Cheesecake cremoso con base de galleta',price:50,image:'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=800&q=60'},
+  {id:204,name:'Flan',desc:'Flan casero con caramelo dorado',price:30,image:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=60'}
+];
+
 const cart = [];
 const menuList = document.getElementById('menu-list');
+const beveragesList = document.getElementById('beverages-list');
+const dessertsList = document.getElementById('desserts-list');
 const cartToggle = document.getElementById('cart-toggle');
 const cartEl = document.getElementById('cart');
 const cartCount = document.getElementById('cart-count');
@@ -33,8 +49,40 @@ function renderMenu(){
   })
 }
 
+function renderBeverages(){
+  beveragesList.innerHTML = '';
+  BEVERAGES.forEach(p=>{
+    const card = document.createElement('div');card.className='card';
+    card.innerHTML = `
+      <img src="${p.image}" alt="${p.name}" />
+      <h4>${p.name}</h4>
+      <p>${p.desc}</p>
+      <div class="price">${fmt(p.price)}</div>
+      <button data-id="${p.id}">Añadir</button>
+    `;
+    card.querySelector('button').addEventListener('click',()=>addToCart(p.id));
+    beveragesList.appendChild(card);
+  })
+}
+
+function renderDesserts(){
+  dessertsList.innerHTML = '';
+  DESSERTS.forEach(p=>{
+    const card = document.createElement('div');card.className='card';
+    card.innerHTML = `
+      <img src="${p.image}" alt="${p.name}" />
+      <h4>${p.name}</h4>
+      <p>${p.desc}</p>
+      <div class="price">${fmt(p.price)}</div>
+      <button data-id="${p.id}">Añadir</button>
+    `;
+    card.querySelector('button').addEventListener('click',()=>addToCart(p.id));
+    dessertsList.appendChild(card);
+  })
+}
+
 function addToCart(id){
-  const prod = PRODUCTS.find(p=>p.id===id);
+  const prod = PRODUCTS.find(p=>p.id===id) || BEVERAGES.find(p=>p.id===id) || DESSERTS.find(p=>p.id===id);
   const entry = cart.find(c=>c.id===id);
   if(entry) entry.qty++;
   else cart.push({id:prod.id,name:prod.name,price:prod.price,qty:1});
@@ -202,4 +250,6 @@ confirmationClose.addEventListener('click', ()=>{
 });
 
 renderMenu();
+renderBeverages();
+renderDesserts();
 updateCartUI();
