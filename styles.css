@@ -62,14 +62,34 @@ form button{background:var(--accent);color:#fff;padding:10px;border-radius:8px;b
 /* Modal de Pago */
 .payment-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;z-index:1000}
 .payment-modal[aria-hidden="false"]{opacity:1;pointer-events:auto}
-.payment-modal-content{background:#fff;border-radius:16px;padding:32px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:slideUp 0.3s ease-out}
+.payment-modal-content{background:#fff;border-radius:16px;max-width:420px;width:90%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:slideUp 0.3s ease-out;display:flex;flex-direction:column}
 @keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
-.payment-modal h2{margin:0 0 24px;color:#222;text-align:center;font-size:1.5rem}
-.payment-close{position:absolute;top:16px;right:16px;background:transparent;border:none;font-size:24px;cursor:pointer;color:#999}
+.payment-modal h2{margin:0 0 8px;color:#222;text-align:center;font-size:1.5rem;padding:20px 32px 0}
+.payment-close{position:absolute;top:16px;right:16px;background:transparent;border:none;font-size:24px;cursor:pointer;color:#999;z-index:10}
 .payment-close:hover{color:#222}
 
+/* Formulario de Pago */
+#payment-form{display:flex;flex-direction:column;gap:0;padding:0 32px 32px}
+
+/* Secciones del Formulario */
+.form-section{padding:20px 0 0}
+.form-section h3{margin:0 0 16px;font-size:1.1rem;color:#333;border-bottom:2px solid #f0f0f0;padding-bottom:12px}
+.form-section:first-of-type{padding-top:0}
+
+/* Divisor */
+.form-divider{height:1px;background:linear-gradient(90deg, transparent, #ddd, transparent);margin:16px 0}
+
+/* Inputs del formulario */
+#payment-form label{display:flex;flex-direction:column;color:#333;font-weight:600;font-size:0.9rem;gap:6px;margin-bottom:12px}
+#payment-form input,#payment-form textarea{padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:1rem;transition:border-color 0.3s;font-family:inherit}
+#payment-form textarea{resize:vertical;min-height:70px}
+#payment-form input:focus,#payment-form textarea:focus{outline:none;border-color:var(--accent)}
+#payment-form input::placeholder,#payment-form textarea::placeholder{color:#999;font-size:0.95rem}
+.form-row{display:flex;gap:16px}
+.form-row label{flex:1}
+
 /* Preview de Tarjeta */
-.card-preview{margin-bottom:24px;display:flex;justify-content:center}
+.card-preview{margin:16px 0;display:flex;justify-content:center}
 .card-visual{width:100%;max-width:340px;height:180px;background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);border-radius:16px;padding:20px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 10px 30px rgba(102,126,234,0.3);position:relative;overflow:hidden}
 .card-visual::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);animation:shimmer 3s infinite}
 @keyframes shimmer{0%{transform:translate(-30%, -30%)}50%{transform:translate(0, 0)}100%{transform:translate(30%, 30%)}}
@@ -79,14 +99,8 @@ form button{background:var(--accent);color:#fff;padding:10px;border-radius:8px;b
 .cardholder-name{text-transform:uppercase;letter-spacing:1px;font-weight:600}
 .expiry{text-align:right}
 
-/* Formulario de Pago */
-#payment-form{display:flex;flex-direction:column;gap:16px}
-#payment-form label{display:flex;flex-direction:column;color:#333;font-weight:600;font-size:0.9rem;gap:6px}
-#payment-form input{padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:1rem;transition:border-color 0.3s}
-#payment-form input:focus{outline:none;border-color:var(--accent)}
-#payment-form input::placeholder{color:#999;font-size:0.95rem}
-.form-row{display:flex;gap:16px}
-.pay-btn{background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);color:#fff;padding:14px;border:none;border-radius:8px;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all 0.3s;text-transform:uppercase;letter-spacing:1px;box-shadow:0 6px 20px rgba(102,126,234,0.3)}
+/* Botón de Pago */
+.pay-btn{background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);color:#fff;padding:14px;border:none;border-radius:8px;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all 0.3s;text-transform:uppercase;letter-spacing:1px;box-shadow:0 6px 20px rgba(102,126,234,0.3);margin-top:16px;width:100%}
 .pay-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(102,126,234,0.4)}
 .pay-btn:active{transform:translateY(0)}
 
@@ -106,9 +120,20 @@ form button{background:var(--accent);color:#fff;padding:10px;border-radius:8px;b
 /* Responsive para celular */
 @media(max-width:600px){
   /* Modal de Pago */
-  .payment-modal-content{padding:20px;max-width:100%}
-  .payment-modal h2{font-size:1.3rem;margin-bottom:16px}
+  .payment-modal-content{max-height:85vh;padding:0}
+  .payment-modal h2{font-size:1.3rem;padding:16px 16px 0}
   .payment-close{top:12px;right:12px;font-size:20px}
+  
+  /* Formulario */
+  #payment-form{padding:0 16px 16px}
+  .form-section{padding:12px 0}
+  .form-section h3{font-size:1rem;margin-bottom:12px;padding-bottom:10px}
+  .form-divider{margin:12px 0}
+  
+  /* Inputs */
+  #payment-form label{font-size:0.85rem;gap:4px;margin-bottom:10px}
+  #payment-form input,#payment-form textarea{padding:14px;font-size:16px}
+  #payment-form textarea{min-height:60px}
   
   /* Tarjeta Visual */
   .card-visual{max-width:100%;height:160px;padding:16px}
@@ -116,13 +141,9 @@ form button{background:var(--accent);color:#fff;padding:10px;border-radius:8px;b
   .card-number{font-size:1.3rem;letter-spacing:6px;margin-bottom:12px}
   .card-info{font-size:0.85rem}
   
-  /* Formulario */
-  #payment-form{gap:12px}
-  #payment-form label{font-size:0.85rem;gap:4px}
-  #payment-form input{padding:14px;font-size:16px}
+  /* Forma */
   .form-row{gap:12px}
-  .form-row label{flex:1}
-  .pay-btn{padding:16px;font-size:1rem}
+  .pay-btn{padding:16px;font-size:1rem;margin-top:12px}
   
   /* Modal de Confirmación */
   .confirmation-content{padding:32px 20px}
