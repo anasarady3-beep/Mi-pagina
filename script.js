@@ -31,6 +31,11 @@ const cartTotalEl = document.getElementById('cart-total');
 const cartClose = document.getElementById('cart-close');
 const checkoutBtn = document.getElementById('checkout');
 
+// Validar elementos críticos
+console.log('menuList:', menuList);
+console.log('beveragesList:', beveragesList);
+console.log('dessertsList:', dessertsList);
+
 function fmt(v){return '$'+Math.round(v)}
 
 function renderMenu(){
