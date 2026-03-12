@@ -100,6 +100,56 @@
       </div>
     </aside>
 
+    <!-- Modal de Pago por Tarjeta -->
+    <div id="payment-modal" class="payment-modal" aria-hidden="true">
+      <div class="payment-modal-content">
+        <button id="payment-close" class="payment-close">✕</button>
+        <h2>Método de Pago</h2>
+        
+        <div class="card-preview">
+          <div class="card-visual">
+            <div class="card-chip"></div>
+            <div class="card-number" id="card-number-display">#### #### #### ####</div>
+            <div class="card-info">
+              <div class="cardholder-name" id="cardholder-display">NOMBRE</div>
+              <div class="expiry" id="expiry-display">MM/YY</div>
+            </div>
+          </div>
+        </div>
+
+        <form id="payment-form">
+          <label>Número de Tarjeta (16 dígitos)
+            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required />
+          </label>
+          
+          <label>Nombre del Titular
+            <input type="text" id="cardholder" placeholder="Nombre Completo" required />
+          </label>
+
+          <div class="form-row">
+            <label style="flex:1">Fecha de Expiración (MM/YY)
+              <input type="text" id="expiry" placeholder="12/25" maxlength="5" required />
+            </label>
+            <label style="flex:1">CVV
+              <input type="text" id="cvv" placeholder="123" maxlength="3" required />
+            </label>
+          </div>
+
+          <button type="submit" class="pay-btn">Confirmar Pago</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div id="confirmation-modal" class="confirmation-modal" aria-hidden="true">
+      <div class="confirmation-content">
+        <div class="success-icon">✓</div>
+        <h2>¡Pedido Enviado!</h2>
+        <p>Tu pedido ha sido confirmado y será procesado pronto.</p>
+        <button id="confirmation-close" class="confirmation-btn">Aceptar</button>
+      </div>
+    </div>
+
     <footer class="site-footer">
       <div class="container">
         <p>© 2026 Zuriel's Jr — Hamburguesas artesanales</p>

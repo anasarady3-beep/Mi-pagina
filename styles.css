@@ -58,3 +58,47 @@ form button{background:var(--accent);color:#fff;padding:10px;border-radius:8px;b
   .hero-image{width:200px;height:200px}
   .hero-text h2{font-size:1.4rem}
 }
+
+/* Modal de Pago */
+.payment-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;z-index:1000}
+.payment-modal[aria-hidden="false"]{opacity:1;pointer-events:auto}
+.payment-modal-content{background:#fff;border-radius:16px;padding:32px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:slideUp 0.3s ease-out}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.payment-modal h2{margin:0 0 24px;color:#222;text-align:center;font-size:1.5rem}
+.payment-close{position:absolute;top:16px;right:16px;background:transparent;border:none;font-size:24px;cursor:pointer;color:#999}
+.payment-close:hover{color:#222}
+
+/* Preview de Tarjeta */
+.card-preview{margin-bottom:24px;display:flex;justify-content:center}
+.card-visual{width:100%;max-width:340px;height:180px;background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);border-radius:16px;padding:20px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 10px 30px rgba(102,126,234,0.3);position:relative;overflow:hidden}
+.card-visual::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);animation:shimmer 3s infinite}
+@keyframes shimmer{0%{transform:translate(-30%, -30%)}50%{transform:translate(0, 0)}100%{transform:translate(30%, 30%)}}
+.card-chip{width:50px;height:40px;background:linear-gradient(45deg, #ffd700, #ffed4e);border-radius:6px;margin-bottom:20px;box-shadow:0 4px 12px rgba(255,215,0,0.3)}
+.card-number{font-size:1.6rem;font-family:'Courier New', monospace;letter-spacing:8px;margin-bottom:16px;font-weight:600}
+.card-info{display:flex;justify-content:space-between;align-items:flex-end;font-size:0.9rem}
+.cardholder-name{text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.expiry{text-align:right}
+
+/* Formulario de Pago */
+#payment-form{display:flex;flex-direction:column;gap:16px}
+#payment-form label{display:flex;flex-direction:column;color:#333;font-weight:600;font-size:0.9rem;gap:6px}
+#payment-form input{padding:12px;border:2px solid #e0e0e0;border-radius:8px;font-size:1rem;transition:border-color 0.3s}
+#payment-form input:focus{outline:none;border-color:var(--accent)}
+#payment-form input::placeholder{color:#999;font-size:0.95rem}
+.form-row{display:flex;gap:16px}
+.pay-btn{background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);color:#fff;padding:14px;border:none;border-radius:8px;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all 0.3s;text-transform:uppercase;letter-spacing:1px;box-shadow:0 6px 20px rgba(102,126,234,0.3)}
+.pay-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(102,126,234,0.4)}
+.pay-btn:active{transform:translateY(0)}
+
+/* Modal de Confirmación */
+.confirmation-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;z-index:1001}
+.confirmation-modal[aria-hidden="false"]{opacity:1;pointer-events:auto}
+.confirmation-content{background:#fff;border-radius:16px;padding:48px 32px;max-width:380px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);animation:bounceIn 0.5s ease-out}
+@keyframes bounceIn{0%{transform:scale(0.3);opacity:0}50%{opacity:1}70%{transform:scale(1.05)}100%{transform:scale(1)}}
+.success-icon{font-size:64px;color:#2b8a3e;margin-bottom:16px;animation:popIn 0.6s ease-out}
+@keyframes popIn{0%{transform:scale(0) rotate(-180deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+.confirmation-content h2{margin:0 0 12px;color:#222;font-size:1.6rem}
+.confirmation-content p{margin:0 0 24px;color:#666;font-size:1rem;line-height:1.5}
+.confirmation-btn{background:#2b8a3e;color:#fff;padding:12px 32px;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.3s}
+.confirmation-btn:hover{background:#238a34;transform:translateY(-2px)}
+.confirmation-btn:active{transform:translateY(0)}

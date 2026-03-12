@@ -67,20 +67,121 @@ cartToggle.addEventListener('click',()=>{
 cartClose.addEventListener('click',()=>cartEl.setAttribute('aria-hidden','true'));
 
 checkoutBtn.addEventListener('click',()=>{
-  const name = document.getElementById('customer-name').value || 'Cliente';
   if(cart.length===0){alert('Tu carrito está vacío. Añade productos antes de pagar.');return}
-  const total = cart.reduce((s,i)=>s + i.price*i.qty,0);
-  const summary = cart.map(i=>`${i.name} x${i.qty}`).join('\n');
-  alert(`Pedido de ${name}\n\nItems:\n${summary}\n\nTotal: ${fmt(total)}\n\nGracias — recibirás la confirmación pronto.`);
-  cart.splice(0,cart.length);
-  updateCartUI();
-  cartEl.setAttribute('aria-hidden','true');
+  const name = document.getElementById('customer-name').value || 'Cliente';
+  document.getElementById('payment-modal').setAttribute('aria-hidden', 'false');
 });
 
 document.getElementById('order-form').addEventListener('submit',e=>{
   e.preventDefault();
   if(cart.length===0){alert('Agrega al menos una hamburguesa al carrito antes de enviar el pedido.');return}
   checkoutBtn.click();
+});
+
+// Modal de Pago
+const paymentModal = document.getElementById('payment-modal');
+const paymentClose = document.getElementById('payment-close');
+const paymentForm = document.getElementById('payment-form');
+const cardNumberInput = document.getElementById('card-number');
+const cardholderInput = document.getElementById('cardholder');
+const expiryInput = document.getElementById('expiry');
+const cvvInput = document.getElementById('cvv');
+const cardNumberDisplay = document.getElementById('card-number-display');
+const cardholderDisplay = document.getElementById('cardholder-display');
+const expiryDisplay = document.getElementById('expiry-display');
+const confirmationModal = document.getElementById('confirmation-modal');
+const confirmationClose = document.getElementById('confirmation-close');
+
+// Formatear número de tarjeta con espacios
+cardNumberInput.addEventListener('input', (e)=>{
+  let value = e.target.value.replace(/\s/g, '');
+  let formattedValue = value.replace(/(\d{4})/g, '$1 ').trim();
+  e.target.value = formattedValue;
+  
+  // Mostrar en tarjeta visual
+  if(value.length === 0) {
+    cardNumberDisplay.textContent = '#### #### #### ####';
+  } else {
+    let display = value.padEnd(16, '#').slice(0, 16).replace(/\d/g, '*').replace(/(\*{4})/g, '$1 ').trim();
+    cardNumberDisplay.textContent = display;
+  }
+});
+
+// Actualizar nombre en tarjeta
+cardholderInput.addEventListener('input', (e)=>{
+  cardholderDisplay.textContent = e.target.value.toUpperCase() || 'NOMBRE';
+});
+
+// Formatear fecha de expiración
+expiryInput.addEventListener('input', (e)=>{
+  let value = e.target.value.replace(/\D/g, '');
+  if(value.length >= 2){
+    value = value.slice(0,2) + '/' + value.slice(2, 4);
+  }
+  e.target.value = value;
+  expiryDisplay.textContent = value || 'MM/YY';
+});
+
+// Permitir solo números en CVV
+cvvInput.addEventListener('input', (e)=>{
+  e.target.value = e.target.value.replace(/\D/g, '').slice(0, 3);
+});
+
+// Cerrar modal de pago
+paymentClose.addEventListener('click', ()=>{
+  paymentModal.setAttribute('aria-hidden', 'true');
+});
+
+// Enviar formulario de pago
+paymentForm.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  
+  const cardNumber = cardNumberInput.value.replace(/\s/g, '');
+  const cardholder = cardholderInput.value;
+  const expiry = expiryInput.value;
+  const cvv = cvvInput.value;
+  
+  // Validar número de tarjeta (16 dígitos)
+  if(cardNumber.length !== 16 || !/^\d+$/.test(cardNumber)){
+    alert('Por favor, ingresa un número de tarjeta válido (16 dígitos)');
+    return;
+  }
+  
+  // Validar otros campos
+  if(!cardholder.trim()){
+    alert('Por favor, ingresa el nombre del titular');
+    return;
+  }
+  
+  if(!/^\d{2}\/\d{2}$/.test(expiry)){
+    alert('Por favor, ingresa una fecha de expiración válida (MM/YY)');
+    return;
+  }
+  
+  if(cvv.length !== 3){
+    alert('Por favor, ingresa un CVV válido (3 dígitos)');
+    return;
+  }
+  
+  // Si todo es válido, mostrar confirmación
+  paymentModal.setAttribute('aria-hidden', 'true');
+  confirmationModal.setAttribute('aria-hidden', 'false');
+  
+  // Limpiar carrito
+  cart.splice(0, cart.length);
+  updateCartUI();
+  cartEl.setAttribute('aria-hidden', 'true');
+  
+  // Limpiar formulario
+  paymentForm.reset();
+  cardNumberDisplay.textContent = '#### #### #### ####';
+  cardholderDisplay.textContent = 'NOMBRE';
+  expiryDisplay.textContent = 'MM/YY';
+});
+
+// Cerrar modal de confirmación
+confirmationClose.addEventListener('click', ()=>{
+  confirmationModal.setAttribute('aria-hidden', 'true');
 });
 
 renderMenu();
