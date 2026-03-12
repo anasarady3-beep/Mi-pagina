@@ -68,14 +68,28 @@ cartClose.addEventListener('click',()=>cartEl.setAttribute('aria-hidden','true')
 
 checkoutBtn.addEventListener('click',()=>{
   if(cart.length===0){alert('Tu carrito está vacío. Añade productos antes de pagar.');return}
-  const name = document.getElementById('customer-name').value || 'Cliente';
+  const address = document.getElementById('customer-address').value;
+  if(!address.trim()){alert('Por favor, ingresa tu dirección de entrega antes de pagar.');return}
   document.getElementById('payment-modal').setAttribute('aria-hidden', 'false');
 });
 
 document.getElementById('order-form').addEventListener('submit',e=>{
   e.preventDefault();
-  if(cart.length===0){alert('Agrega al menos una hamburguesa al carrito antes de enviar el pedido.');return}
-  checkoutBtn.click();
+  const contactType = document.getElementById('contact-type').value;
+  const name = document.getElementById('customer-name').value;
+  const address = document.getElementById('customer-address').value;
+  
+  // Si es pedido, validar carrito y dirección
+  if(contactType === 'order'){
+    if(cart.length===0){alert('Agrega al menos una hamburguesa al carrito antes de enviar el pedido.');return}
+    if(!address.trim()){alert('Por favor, ingresa tu dirección de entrega.');return}
+    checkoutBtn.click();
+  } else {
+    // Para sugerencias, quejas y dudas
+    if(!name.trim()){alert('Por favor, ingresa tu nombre.');return}
+    alert(`¡Gracias por tu ${contactType === 'suggestion' ? 'sugerencia' : contactType === 'complaint' ? 'comentario' : 'pregunta'}!\n\nNos pondremos en contacto pronto.`);
+    document.getElementById('order-form').reset();
+  }
 });
 
 // Modal de Pago

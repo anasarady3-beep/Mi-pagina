@@ -73,16 +73,28 @@
       <section id="contact" class="container contact">
         <h3>Contacto / Pedido</h3>
         <form id="order-form">
-          <label>Nombre
+          <label>Nombre *
             <input type="text" id="customer-name" required />
           </label>
-          <label>Dirección (opcional para recogida)
-            <input type="text" id="customer-address" />
+          
+          <label>Tipo de Contacto
+            <select id="contact-type">
+              <option value="order">Realizar Pedido</option>
+              <option value="suggestion">Sugerencia</option>
+              <option value="complaint">Queja</option>
+              <option value="doubt">Duda o Pregunta</option>
+            </select>
           </label>
-          <label>Comentarios
-            <textarea id="customer-notes"></textarea>
+          
+          <label>Dirección (requerida para pedidos)
+            <input type="text" id="customer-address" placeholder="Ej: Calle 123, Apartamento 4" />
           </label>
-          <button type="submit">Enviar pedido</button>
+          
+          <label>Mensaje / Comentarios
+            <textarea id="customer-notes" placeholder="Cuéntanos tu sugerencia, queja, duda o detalles del pedido..."></textarea>
+          </label>
+          
+          <button type="submit">Enviar</button>
         </form>
       </section>
     </main>
