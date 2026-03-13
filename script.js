@@ -148,6 +148,29 @@ const expiryDisplay = document.getElementById('expiry-display');
 const confirmationModal = document.getElementById('confirmation-modal');
 const confirmationClose = document.getElementById('confirmation-close');
 
+const deliveryAddressInput = document.getElementById('delivery-address');
+const deliveryPhoneInput = document.getElementById('delivery-phone');
+const deliveryNotesInput = document.getElementById('delivery-notes');
+
+// Cargar datos guardados al abrir el modal de pago
+checkoutBtn.addEventListener('click',()=>{
+  if(cart.length===0){alert('Tu carrito está vacío. Añade productos antes de pagar.');return}
+  // Autocompletar datos si existen
+  const saved = JSON.parse(localStorage.getItem('userOrderData')||'{}');
+  if(deliveryAddressInput && saved.address) deliveryAddressInput.value = saved.address;
+  if(deliveryPhoneInput && saved.phone) deliveryPhoneInput.value = saved.phone;
+  if(deliveryNotesInput && saved.notes) deliveryNotesInput.value = saved.notes;
+  if(cardNumberInput && saved.cardNumber) cardNumberInput.value = saved.cardNumber;
+  if(cardholderInput && saved.cardholder) cardholderInput.value = saved.cardholder;
+  if(expiryInput && saved.expiry) expiryInput.value = saved.expiry;
+  if(cvvInput && saved.cvv) cvvInput.value = saved.cvv;
+  // Actualizar visualización de tarjeta
+  cardNumberDisplay.textContent = cardNumberInput.value ? cardNumberInput.value.replace(/\d/g,'*') : '#### #### #### ####';
+  cardholderDisplay.textContent = cardholderInput.value ? cardholderInput.value.toUpperCase() : 'NOMBRE';
+  expiryDisplay.textContent = expiryInput.value || 'MM/YY';
+  paymentModal.setAttribute('aria-hidden', 'false');
+});
+
 // Formatear número de tarjeta con espacios
 cardNumberInput.addEventListener('input', (e)=>{
   let value = e.target.value.replace(/\s/g, '');
@@ -193,56 +216,56 @@ paymentForm.addEventListener('submit', (e)=>{
   e.preventDefault();
   
   // Validar dirección
-  const deliveryAddress = document.getElementById('delivery-address').value;
-  const deliveryPhone = document.getElementById('delivery-phone').value;
-  
-  if(!deliveryAddress.trim()){
-    alert('Por favor, ingresa tu dirección de entrega');
-    return;
-  }
-  
-  if(!deliveryPhone.trim()){
-    alert('Por favor, ingresa tu teléfono de contacto');
-    return;
-  }
-  
+  const deliveryAddress = deliveryAddressInput.value;
+  const deliveryPhone = deliveryPhoneInput.value;
+  const deliveryNotes = deliveryNotesInput.value;
   const cardNumber = cardNumberInput.value.replace(/\s/g, '');
   const cardholder = cardholderInput.value;
   const expiry = expiryInput.value;
   const cvv = cvvInput.value;
-  
-  // Validar número de tarjeta (16 dígitos)
+
+  if(!deliveryAddress.trim()){
+    alert('Por favor, ingresa tu dirección de entrega');
+    return;
+  }
+  if(!deliveryPhone.trim()){
+    alert('Por favor, ingresa tu teléfono de contacto');
+    return;
+  }
   if(cardNumber.length !== 16 || !/^\d+$/.test(cardNumber)){
     alert('Por favor, ingresa un número de tarjeta válido (16 dígitos)');
     return;
   }
-  
-  // Validar otros campos
   if(!cardholder.trim()){
     alert('Por favor, ingresa el nombre del titular');
     return;
   }
-  
   if(!/^\d{2}\/\d{2}$/.test(expiry)){
     alert('Por favor, ingresa una fecha de expiración válida (MM/YY)');
     return;
   }
-  
   if(cvv.length !== 3){
     alert('Por favor, ingresa un CVV válido (3 dígitos)');
     return;
   }
-  
+
+  // Guardar datos en localStorage
+  localStorage.setItem('userOrderData', JSON.stringify({
+    address: deliveryAddress,
+    phone: deliveryPhone,
+    notes: deliveryNotes,
+    cardNumber: cardNumberInput.value,
+    cardholder: cardholder,
+    expiry: expiry,
+    cvv: cvv
+  }));
+
   // Si todo es válido, mostrar confirmación
   paymentModal.setAttribute('aria-hidden', 'true');
   confirmationModal.setAttribute('aria-hidden', 'false');
-  
-  // Limpiar carrito
   cart.splice(0, cart.length);
   updateCartUI();
   cartEl.setAttribute('aria-hidden', 'true');
-  
-  // Limpiar formulario
   paymentForm.reset();
   cardNumberDisplay.textContent = '#### #### #### ####';
   cardholderDisplay.textContent = 'NOMBRE';
