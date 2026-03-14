@@ -152,18 +152,36 @@ const deliveryAddressInput = document.getElementById('delivery-address');
 const deliveryPhoneInput = document.getElementById('delivery-phone');
 const deliveryNotesInput = document.getElementById('delivery-notes');
 
-// Cargar datos guardados al abrir el modal de pago
-checkoutBtn.addEventListener('click',()=>{
+// Generar o recuperar userId para asociar al usuario en la base de datos
+const USER_ID_STORAGE_KEY = 'userId';
+function getOrCreateUserId(){
+  let id = localStorage.getItem(USER_ID_STORAGE_KEY);
+  if(!id){
+    id = crypto.randomUUID();
+    localStorage.setItem(USER_ID_STORAGE_KEY, id);
+  }
+  return id;
+}
+
+// Cargar datos del servidor al abrir el modal de pago
+checkoutBtn.addEventListener('click',async ()=>{
   if(cart.length===0){alert('Tu carrito está vacío. Añade productos antes de pagar.');return}
-  // Autocompletar datos si existen
-  const saved = JSON.parse(localStorage.getItem('userOrderData')||'{}');
-  if(deliveryAddressInput && saved.address) deliveryAddressInput.value = saved.address;
-  if(deliveryPhoneInput && saved.phone) deliveryPhoneInput.value = saved.phone;
-  if(deliveryNotesInput && saved.notes) deliveryNotesInput.value = saved.notes;
-  if(cardNumberInput && saved.cardNumber) cardNumberInput.value = saved.cardNumber;
-  if(cardholderInput && saved.cardholder) cardholderInput.value = saved.cardholder;
-  if(expiryInput && saved.expiry) expiryInput.value = saved.expiry;
-  if(cvvInput && saved.cvv) cvvInput.value = saved.cvv;
+  const userId = getOrCreateUserId();
+  try{
+    const res = await fetch(`/api/user/${userId}`);
+    if(res.ok){
+      const saved = await res.json();
+      if(deliveryAddressInput && saved.address) deliveryAddressInput.value = saved.address;
+      if(deliveryPhoneInput && saved.phone) deliveryPhoneInput.value = saved.phone;
+      if(deliveryNotesInput && saved.notes) deliveryNotesInput.value = saved.notes;
+      if(cardNumberInput && saved.cardNumber) cardNumberInput.value = saved.cardNumber;
+      if(cardholderInput && saved.cardholder) cardholderInput.value = saved.cardholder;
+      if(expiryInput && saved.expiry) expiryInput.value = saved.expiry;
+      if(cvvInput && saved.cvv) cvvInput.value = saved.cvv;
+    }
+  }catch(_){
+    // Si falla, continuamos sin datos precargados
+  }
   // Actualizar visualización de tarjeta
   cardNumberDisplay.textContent = cardNumberInput.value ? cardNumberInput.value.replace(/\d/g,'*') : '#### #### #### ####';
   cardholderDisplay.textContent = cardholderInput.value ? cardholderInput.value.toUpperCase() : 'NOMBRE';
@@ -249,16 +267,34 @@ paymentForm.addEventListener('submit', (e)=>{
     return;
   }
 
-  // Guardar datos en localStorage
-  localStorage.setItem('userOrderData', JSON.stringify({
-    address: deliveryAddress,
-    phone: deliveryPhone,
-    notes: deliveryNotes,
-    cardNumber: cardNumberInput.value,
-    cardholder: cardholder,
-    expiry: expiry,
-    cvv: cvv
-  }));
+  // Guardar datos del usuario en el servidor
+  const userId = getOrCreateUserId();
+  await fetch('/api/user', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      id: userId,
+      name: document.getElementById('customer-name').value,
+      address: deliveryAddress,
+      phone: deliveryPhone,
+      notes: deliveryNotes,
+      cardNumber: cardNumberInput.value,
+      cardholder: cardholder,
+      expiry: expiry,
+      cvv: cvv
+    })
+  });
+
+  // Registrar el pedido
+  await fetch('/api/order', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      userId,
+      items: cart,
+      total: cart.reduce((s,i)=>s + i.price*i.qty,0)
+    })
+  });
 
   // Si todo es válido, mostrar confirmación
   paymentModal.setAttribute('aria-hidden', 'true');
